@@ -1,23 +1,20 @@
---
---    Copyright 2015-2016 the original author or authors.
---
---    Licensed under the Apache License, Version 2.0 (the "License");
---    you may not use this file except in compliance with the License.
---    You may obtain a copy of the License at
---
---       http://www.apache.org/licenses/LICENSE-2.0
---
---    Unless required by applicable law or agreed to in writing, software
---    distributed under the License is distributed on an "AS IS" BASIS,
---    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
---    See the License for the specific language governing permissions and
---    limitations under the License.
---
-
-drop table user if exists;
-
-create table user (id int primary key, username varchar(100), password varchar(100), role varchar(100));
 
 
-insert into user (id, username, password, role) values (1,'nico', 'han', 'admin');
+drop table users if exists cascade;
+drop table authorities if exists cascade;
 
+
+create table users(
+    username varchar_ignorecase(50) not null primary key,
+    password varchar_ignorecase(50) not null,
+    enabled boolean not null
+);
+
+create table authorities (
+    username varchar_ignorecase(50) not null,
+    authority varchar_ignorecase(50) not null,
+    constraint fk_authorities_users foreign key(username) references users(username)
+);
+
+insert into users values('han','123',true);
+insert into authorities values('han','ROLE_USER');

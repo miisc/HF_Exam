@@ -23,7 +23,6 @@ public class ImportController {
 	}
 
 	@RequestMapping("/importExcel")
-	// @ResponseBody
 	public String Questions(Model model) {
 		String filePath = "C:\\Users\\jine\\Downloads\\Book1.xlsx";
 		List<Question> list = ImportUtil.importExcel(filePath, 0, 1, Question.class);

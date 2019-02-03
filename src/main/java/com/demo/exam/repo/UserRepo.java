@@ -9,9 +9,6 @@ import com.demo.exam.entity.User;
 @Mapper
 public interface UserRepo {
 
-	@Select("select * from user where username = #{username} and password = #{password}")
-	public User verifyUser(@Param("username") String username, @Param("password") String password);
-
-	@Select("select * from user where username = #{username}")
+	@Select("select username,password,enabled from users where username = #{username}")
 	public User getUserByUsername(@Param("username") String username);
 }

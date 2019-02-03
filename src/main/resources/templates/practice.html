@@ -35,7 +35,7 @@
 
 			for (x in correctAnswer) {
 				if (correctAnswer[x] != userAnswer[x]) {
-					alert("Wrong! correct:  " + correctAnswer);
+					alert("Wrong! correct answer is:  " + correctAnswer);
 					return;
 				}
 			}
@@ -49,8 +49,9 @@
 </script>
 </head>
 <body>
+<!-- 
 	<div th:include="common :: nav-menu"></div>
-
+ -->
 	<div class="contain">
 		<h1 class="page-header text-center">
 			恒丰考试 - <small>练习</small>
@@ -69,9 +70,11 @@
 					<div th:switch="${question.type}">
 						<input th:case="'单选'" type="radio" th:value="${op.id}"
 							th:name="userAnswer" /> <label th:case="'单选'"
-							th:text="${op.description}">A</label> <input th:case="'多选'"
+							th:text="${op.description}">A</label> 
+						<input th:case="'多选'"
 							type="checkbox" th:value="${op.id}" th:name="userAnswer" /> <label
-							th:case="'单选'" th:text="${op.description}">A</label> <input
+							th:case="'单选'" th:text="${op.description}">A</label> 
+						<input
 							th:case="'判断'" type="radio" th:value="${op.id}"
 							th:name="userAnswer" /> <label th:text="${op.description}">A</label>
 					</div>
@@ -79,7 +82,7 @@
 				<div class="answer">
 					<HR align=center color=#987cb9 SIZE=5>
 					<p th:text="${question.answer}">answer</p>
-					<p th:text="${question.remarks}">remarks</p>
+					<p th:text="${question.comment}">comment</p>
 				</div>
 			</div>
 		</div>

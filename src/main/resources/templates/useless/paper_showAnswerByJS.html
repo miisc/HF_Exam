@@ -47,19 +47,17 @@
 							for(qIndex in cAnswer){
 								//alert("correct vs User: "+cAnswer[qIndex].length+" vs "+uAnswer[qIndex].length);
 								if(cAnswer[qIndex].length != uAnswer[qIndex].length){
-									//alert("第"+ qIndex + "题  wrong!");
-									//alert(qList[qIndex].id);
+									alert("第"+ qIndex + "题  wrong!");
+									
 									$("#"+qList[qIndex].id).css("display","block");
 									$("#"+qList[qIndex].id).css("color","red");
-									
-									
 									flag=false;										
 									break;
 								}
 									
 								for(x in cAnswer[qIndex]){
 									if (uAnswer[qIndex][x].indexOf(cAnswer[qIndex][x]) == -1) {											
-											//alert("第"+ qIndex + "题  wrong");
+											alert("第"+ qIndex + "题  wrong");
 											
 											$("#"+qList[qIndex].id).css("display","block");
 											$("#"+qList[qIndex].id).css("color","red");
@@ -70,66 +68,24 @@
 							}
 							if(flag==true){
 								alert("神奇的全对!");
-								//$("form").submit();
+								$("form").submit();
 							}
 						})
 			});
 </script>
 </head>
 <body>
-	<div class="container">
+	<div class="contain">
 		<h1 class="page-header text-center">
-			恒丰考试 <small> 试卷 1</small>
+			HF Exam - <small>paper 1</small>
 		</h1>
 	</div>
-<!-- 
+
 	<div th:include="common :: nav-menu"></div>
- -->
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-3">
-				<div class="input-group">
-					<span class="input-group-addon">单选题分值</span> <input type="text"
-						class="form-control" placeholder="1">
-				</div>
-			</div>
-			<div class="col-lg-3">
-				<div class="input-group">
-					<span class="input-group-addon">多选题分值</span> <input type="text"
-						class="form-control" placeholder="2">
-				</div>
-			</div>
-			<div class="col-lg-3">
-				<div class="input-group">
-					<span class="input-group-addon">判断题分值</span> <input type="text"
-						class="form-control" placeholder="1">
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-3">
-				<div class="input-group">
-					<span class="input-group-addon">单选题数量</span> <input type="text"
-						class="form-control" placeholder="10">
-				</div>
-			</div>
-			<div class="col-lg-3">
-				<div class="input-group">
-					<span class="input-group-addon">多选题数量</span> <input type="text"
-						class="form-control" placeholder="11">
-				</div>
-			</div>
-			<div class="col-lg-3">
-				<div class="input-group">
-					<span class="input-group-addon">判断题数量</span> <input type="text"
-						class="form-control" placeholder="12">
-				</div>
-			</div>
-		</div>
-	</div>
-	<HR align=center color=#987cb9 SIZE=5>
+
 	<div class="container" th:unless="${#lists.isEmpty(paper.questions)}"
 		id="example">
+
 		<div class="panel panel-primary" th:each="q:${paper.questions}">
 			<div class="panel-heading">
 				<h3 class="panel-title" th:text="'Question '+${q.id}">Question
@@ -148,7 +104,7 @@
 						<label th:text="${op.description}">A</label>
 					</div>
 				</div>
-				<div class="answer" th:id="${q.id}">
+				<div class="answer">
 					<HR align=center color=#987cb9 SIZE=5>
 					<p th:text="${q.answer}">answer</p>
 					<p th:text="${q.comment}">comment</p>

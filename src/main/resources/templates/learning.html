@@ -74,7 +74,7 @@
 												+ '<div class="answer">'
 												+ '<HR align="center" color="#987cb9" size=5>'
 												+ '<p>' + question.answer +'</p>'
-												+ '<p>' + question.remarks + '</p>'
+												+ '<p>' + question.comment + '</p>'
 												+ '</div>'
 												+ '</div>'
 												+ '</div>';
@@ -118,8 +118,9 @@
 </script>
 </head>
 <body>
+<!-- 
 	<div th:include="common :: nav-menu"></div>
-
+ -->
 	<div class="container"
 		th:unless="${#lists.isEmpty(questionListPerPage)}" id="example">
 
@@ -144,7 +145,7 @@
 				<div class="answer">
 					<HR align=center color=#987cb9 SIZE=5>
 					<p th:text="${q.answer}">answer</p>
-					<p th:text="${q.remarks}">remarks</p>
+					<p th:text="${q.comment}">remarks</p>
 				</div>
 			</div>
 		</div>

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	xmlns:th="http://www.thymeleaf.org">
 <body>
 	<div th:fragment="nav-menu">
 		<nav class="navbar navbar-default">
@@ -9,9 +8,9 @@
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">HF eLearning</a>
 				</div>
-				<div class="nav navbar-nav navbar-right" id="navbar"
-					sec:authorize="isAnonymous()">
-					<form class="navbar-form navbar-right" th:action="@{/login}"
+				<div class="nav navbar-nav navbar-right" id="navbar">
+					<form th:if="${user.role} == null or ${user.username} == ''"
+						class="navbar-form navbar-right" th:action="@{/login}"
 						th:object="${user}" method="post">
 						<div class="form-group">
 							<input type="text" name="username" id="username"
@@ -29,18 +28,17 @@
 						</div>
 					</form>
 				</div>
-			
-					<ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false" sec:authentication="principal.username">HanHan
-								<span class="caret"></span>
-						</a>
-							<ul class="dropdown-menu">
-								<li><a href="/logout">logout</a></li>
-							</ul></li>
-					</ul>
-				
+				<ul th:if="${user.username} !='' and ${user.role} != null "
+					class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false" th:text="${user.username}">HanHan <span
+							class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="/logout">logout</a></li>
+						</ul></li>
+				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#">Home</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"

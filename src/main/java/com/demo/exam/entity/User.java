@@ -5,9 +5,13 @@ import lombok.Data;
 @Data
 public class User {
 
-	int id;
+	String username = "";
+	String password;
+	boolean enabled;
 
-	String username, password;
-	String role;
+	@Override
+	public String toString() {
+		return "[ username=" + username + " enabled=" + enabled + "]";
+	}
 
 }

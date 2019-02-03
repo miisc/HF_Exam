@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 
 import com.demo.exam.entity.Question;
 import com.demo.exam.entity.User;
@@ -28,7 +29,7 @@ import com.demo.exam.util.Page;
 
 @Controller
 @RequestMapping("/question")
-@SessionAttributes(types = { User.class }, value = { "currentUser" })
+//@SessionAttributes(types = { User.class }, value = { "user" })
 public class QuestionController {
 
 	private static final Logger log = LoggerFactory.getLogger(QuestionController.class);
@@ -39,23 +40,25 @@ public class QuestionController {
 	@Autowired
 	PaperRepo pRepo;
 
-	@ModelAttribute
-	public User getUserFromSession(ModelMap model, SessionStatus sessionStatus) {
-		User user = (User) model.get("currentUser");
-//		sessionStatus.setComplete();
-		log.info(user.toString());
-		return user;
-	}
+//	@ModelAttribute
+//	public User getUserFromSession(ModelMap model, HttpServletRequest request) {
+//		
+//		User user = new User();
+//		if (model.get("user") != null)
+//			user = (User) model.get("user");
+//		return user;
+//	}
 
 	/*
-	 * list question with default parameters
+	 * list question with default page parameters
 	 * 
 	 */
 	@GetMapping("/list")
 	public String list(@RequestParam(required = false, defaultValue = "1") int pageNumber,
 			@RequestParam(required = false, defaultValue = "5") int pageSize, @RequestParam String questionType,
-			@ModelAttribute("currentUser") User user, Model model) {
-		log.info(user.toString());
+			//@ModelAttribute User user, 
+			ModelMap model) {
+
 		switch (questionType) {
 		case "singleChoice":
 			questionType = "单选";
@@ -71,7 +74,6 @@ public class QuestionController {
 			break;
 		}
 
-		// Map<String, Object> map = new HashMap<String, Object>();
 		List<Question> questionList = qRepo.findAllByType(questionType);
 
 		Page page = new Page(questionList.size(), pageNumber);
@@ -118,7 +120,7 @@ public class QuestionController {
 						: pageNumber * page.getPageSize());
 		map.put("questionListPerPage", questionListPerPage);
 		map.put("page", page);
-		log.info("list by page");
+		// log.info("list by page");
 		return map;
 	}
 
